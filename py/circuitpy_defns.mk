@@ -181,6 +181,9 @@ endif
 ifeq ($(CIRCUITPY_VECTORIO),1)
 SRC_PATTERNS += vectorio/%
 endif
+ifeq ($(CIRCUITPY_FIBONACCI),1)
+SRC_PATTERNS += fibonacci/%
+endif
 ifeq ($(CIRCUITPY_FLOPPYIO),1)
 SRC_PATTERNS += floppyio/%
 endif
@@ -414,6 +417,8 @@ SRC_COMMON_HAL_ALL = \
 	digitalio/DigitalInOut.c \
 	digitalio/__init__.c \
 	dualbank/__init__.c \
+	fibonacci/Fibonacci.c \
+	fibonacci/__init__.c \
 	frequencyio/FrequencyIn.c \
 	frequencyio/__init__.c \
 	imagecapture/ParallelImageCapture.c \
