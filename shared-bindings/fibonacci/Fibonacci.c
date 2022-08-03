@@ -56,8 +56,6 @@
 ///
 ///           fib.generate(N)
 //|
-//|           fib.timeout()
-//|
 //|           # Clear the initial number and go to the default a=0, b=1
 ///
 //|           fib.clear()
@@ -220,6 +218,7 @@ MP_PROPERTY_GETTER(fibonacci_fibonacci_b_obj,
 //|     timeout: uint16_t
 //|     """The timeout of the Fibonacci Generator."""
 //|
+/*
 STATIC mp_obj_t fibonacci_fibonacci_obj_get_timeout(mp_obj_t self_in) {
     fibonacci_fibonacci_obj_t *self = MP_OBJ_TO_PTR(self_in);
     check_for_deinit(self);
@@ -230,7 +229,7 @@ MP_DEFINE_CONST_FUN_OBJ_1(fibonacci_fibonacci_get_timeout_obj, fibonacci_fibonac
 
 MP_PROPERTY_GETTER(fibonacci_fibonacci_timeout_obj,
     (mp_obj_t)&fibonacci_fibonacci_get_timeout_obj);
-
+*/
 
 
 
@@ -249,7 +248,7 @@ STATIC const mp_rom_map_elem_t fibonacci_fibonacci_locals_dict_table[] = {
     // Properties
     { MP_ROM_QSTR(MP_QSTR_a), MP_ROM_PTR(&fibonacci_fibonacci_a_obj) },
     { MP_ROM_QSTR(MP_QSTR_b), MP_ROM_PTR(&fibonacci_fibonacci_b_obj) },
-    { MP_ROM_QSTR(MP_QSTR_timeout), MP_ROM_PTR(&fibonacci_fibonacci_timeout_obj) },
+    // { MP_ROM_QSTR(MP_QSTR_timeout), MP_ROM_PTR(&fibonacci_fibonacci_timeout_obj) },
 };
 
 STATIC MP_DEFINE_CONST_DICT(fibonacci_fibonacci_locals_dict, fibonacci_fibonacci_locals_dict_table);

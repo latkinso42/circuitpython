@@ -35,7 +35,7 @@ typedef struct {
     // bool deinited;
     uint16_t a;
     uint16_t b;
-    uint16_t timeout;
+    uint16_t maxnum;
 } fibonacci_fibonacci_obj_t;
 
 // void fibonacci_reset(void);

@@ -1258,6 +1258,10 @@ msgstr ""
 msgid "Mapping must be a tuple"
 msgstr ""
 
+#: ports/raspberrypi/common-hal/fibonacci/Fibonacci.c
+msgid "Max integer exceded!"
+msgstr ""
+
 #: shared-module/displayio/Shape.c
 #, c-format
 msgid "Maximum x value when mirrored is %d"

@@ -31,11 +31,16 @@
 #include "common-hal/fibonacci/Fibonacci.h"
 
 void common_hal_fibonacci_fibonacci_construct(fibonacci_fibonacci_obj_t *self, uint16_t a, uint16_t b) {
+
+    mp_arg_validate_int_min(a, 0, 'a');
+    mp_arg_validate_int_min(b, a, 'b');
+
+    mp_arg_validate_int_max((a / 2), (1073731823 / 2), 'a');
+    mp_arg_validate_int_max((b / 2), (1073731823 / 2), 'b');
+
     self->a = a;
     self->b = b;
-    self->timeout = 10;
-    // somewhere need to enforce a<b
-    // somewhere need to establish default timeout
+    self->maxnum = (uint16_t)1073731823;
 }
 
 bool common_hal_fibonacci_fibonacci_deinited(fibonacci_fibonacci_obj_t *self) {
@@ -50,9 +55,8 @@ void common_hal_fibonacci_fibonacci_deinit(fibonacci_fibonacci_obj_t *self) {
 
 
 void common_hal_fibonacci_fibonacci_clear(fibonacci_fibonacci_obj_t *self) {
-    self->a = 42;
-    self->b = 42;
-    self->timeout = 42;
+    self->a = 0;
+    self->b = 0;
     return;
 }
 
@@ -62,12 +66,13 @@ uint16_t common_hal_fibonacci_fibonacci_generate(fibonacci_fibonacci_obj_t *self
     uint16_t bb = self->b;
     uint16_t cc, i;
 
-    if (N == 0) {
-        return aa;
-    }
+    mp_arg_validate_int_min(N, 1, 'N');
 
     for (i = 2; i <= N; i++) {
         cc = aa + bb;
+        if (cc > self->maxnum) {
+            mp_raise_ValueError(translate("Max integer exceded!"));
+        }
         aa = bb;
         bb = cc;
     }
@@ -84,9 +89,11 @@ uint16_t common_hal_fibonacci_fibonacci_get_b(fibonacci_fibonacci_obj_t *self) {
     return self->b;
 }
 
+/*
 uint16_t common_hal_fibonacci_fibonacci_get_timeout(fibonacci_fibonacci_obj_t *self) {
     return self->timeout;
 }
+*/
 
 uint16_t common_hal_fibonacci_fibonacci_set_a(fibonacci_fibonacci_obj_t *self, uint16_t a) {
     return self->a = a;
