@@ -39,10 +39,11 @@ extern uint16_t common_hal_fibonacci_fibonacci_generate(fibonacci_fibonacci_obj_
 extern void common_hal_fibonacci_fibonacci_clear(fibonacci_fibonacci_obj_t *self);
 
 extern uint16_t common_hal_fibonacci_fibonacci_get_a(fibonacci_fibonacci_obj_t *self);
-
 extern uint16_t common_hal_fibonacci_fibonacci_set_a(fibonacci_fibonacci_obj_t *self, uint16_t a);
 
 extern uint16_t common_hal_fibonacci_fibonacci_get_b(fibonacci_fibonacci_obj_t *self);
-// extern uint16_t common_hal_fibonacci_fibonacci_get_timeout(fibonacci_fibonacci_obj_t *self);
+extern uint16_t common_hal_fibonacci_fibonacci_set_b(fibonacci_fibonacci_obj_t *self, uint16_t b);
+
+
 
 #endif // MICROPY_INCLUDED_SHARED_BINDINGS_FIBONACCI_FIBONACCI_H

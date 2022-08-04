@@ -158,37 +158,17 @@ STATIC mp_obj_t fibonacci_fibonacci_obj_get_a(mp_obj_t self_in) {
     return MP_OBJ_NEW_SMALL_INT(common_hal_fibonacci_fibonacci_get_a(self));
 }
 MP_DEFINE_CONST_FUN_OBJ_1(fibonacci_fibonacci_get_a_obj, fibonacci_fibonacci_obj_get_a);
-// MP_PROPERTY_GETTER(fibonacci_fibonacci_a_obj,(mp_obj_t)&fibonacci_fibonacci_get_a_obj);
 
 STATIC mp_obj_t fibonacci_fibonacci_obj_set_a(mp_obj_t self_in, mp_obj_t a_value) {
     fibonacci_fibonacci_obj_t *self = MP_OBJ_TO_PTR(self_in);
     check_for_deinit(self);
-    // uint16_t a =
-
-    common_hal_fibonacci_fibonacci_set_a(self, mp_obj_is_small_int(a_value));
-    // MP_OBJ_NEW_SMALL_INT(a));
-    // return MP_OBJ_NEW_SMALL_INT(a);
+    common_hal_fibonacci_fibonacci_set_a(self, mp_obj_get_int(a_value));
     return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_2(fibonacci_fibonacci_set_a_obj, fibonacci_fibonacci_obj_set_a);
 MP_PROPERTY_GETSET(fibonacci_fibonacci_a_obj,
     (mp_obj_t)&fibonacci_fibonacci_get_a_obj,
     (mp_obj_t)&fibonacci_fibonacci_set_a_obj);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ///----------------------------------
 //|     b: uint16_t
@@ -197,36 +177,20 @@ MP_PROPERTY_GETSET(fibonacci_fibonacci_a_obj,
 STATIC mp_obj_t fibonacci_fibonacci_obj_get_b(mp_obj_t self_in) {
     fibonacci_fibonacci_obj_t *self = MP_OBJ_TO_PTR(self_in);
     check_for_deinit(self);
-
     return MP_OBJ_NEW_SMALL_INT(common_hal_fibonacci_fibonacci_get_b(self));
 }
 MP_DEFINE_CONST_FUN_OBJ_1(fibonacci_fibonacci_get_b_obj, fibonacci_fibonacci_obj_get_b);
 
-MP_PROPERTY_GETTER(fibonacci_fibonacci_b_obj,
-    (mp_obj_t)&fibonacci_fibonacci_get_b_obj);
-
-
-///----------------------------------
-//|     timeout: uint16_t
-//|     """The timeout of the Fibonacci Generator."""
-//|
-/*
-STATIC mp_obj_t fibonacci_fibonacci_obj_get_timeout(mp_obj_t self_in) {
+STATIC mp_obj_t fibonacci_fibonacci_obj_set_b(mp_obj_t self_in, mp_obj_t b_value) {
     fibonacci_fibonacci_obj_t *self = MP_OBJ_TO_PTR(self_in);
     check_for_deinit(self);
-
-    return MP_OBJ_NEW_SMALL_INT(common_hal_fibonacci_fibonacci_get_timeout(self));
+    common_hal_fibonacci_fibonacci_set_b(self, mp_obj_get_int(b_value));
+    return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_1(fibonacci_fibonacci_get_timeout_obj, fibonacci_fibonacci_obj_get_timeout);
-
-MP_PROPERTY_GETTER(fibonacci_fibonacci_timeout_obj,
-    (mp_obj_t)&fibonacci_fibonacci_get_timeout_obj);
-*/
-
-
-
-
-
+MP_DEFINE_CONST_FUN_OBJ_2(fibonacci_fibonacci_set_b_obj, fibonacci_fibonacci_obj_set_b);
+MP_PROPERTY_GETSET(fibonacci_fibonacci_b_obj,
+    (mp_obj_t)&fibonacci_fibonacci_get_b_obj,
+    (mp_obj_t)&fibonacci_fibonacci_set_b_obj);
 
 ///-----------------------
 STATIC const mp_rom_map_elem_t fibonacci_fibonacci_locals_dict_table[] = {

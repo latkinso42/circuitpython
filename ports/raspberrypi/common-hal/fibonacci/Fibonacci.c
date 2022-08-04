@@ -30,10 +30,30 @@
 #include "shared-bindings/fibonacci/Fibonacci.h"
 #include "common-hal/fibonacci/Fibonacci.h"
 
+/*
+mp_int_t mp_arg_validate_int_min(mp_int_t i, mp_int_t min, qstr arg_name) {
+    if (i < min) {
+        mp_raise_ValueError_varg(translate("%q must be >= %d"), arg_name, min);
+    }
+    return i;
+}
+
+mp_int_t mp_arg_validate_int_max(mp_int_t i, mp_int_t max, qstr arg_name) {
+    if (i > max) {
+        mp_raise_ValueError_varg(translate("%q must be <= %d"), arg_name, max);
+    }
+    return i;
+}
+*/
+
+
+
+
 void common_hal_fibonacci_fibonacci_construct(fibonacci_fibonacci_obj_t *self, uint16_t a, uint16_t b) {
 
     mp_arg_validate_int_min(a, 0, 'a');
     mp_arg_validate_int_min(b, a, 'b');
+    mp_arg_validate_int_max(a, b, 'a');
 
     mp_arg_validate_int_max((a / 2), (1073731823 / 2), 'a');
     mp_arg_validate_int_max((b / 2), (1073731823 / 2), 'b');
@@ -56,7 +76,7 @@ void common_hal_fibonacci_fibonacci_deinit(fibonacci_fibonacci_obj_t *self) {
 
 void common_hal_fibonacci_fibonacci_clear(fibonacci_fibonacci_obj_t *self) {
     self->a = 0;
-    self->b = 0;
+    self->b = 1;
     return;
 }
 
@@ -84,27 +104,19 @@ uint16_t common_hal_fibonacci_fibonacci_generate(fibonacci_fibonacci_obj_t *self
 uint16_t common_hal_fibonacci_fibonacci_get_a(fibonacci_fibonacci_obj_t *self) {
     return self->a;
 }
+uint16_t common_hal_fibonacci_fibonacci_set_a(fibonacci_fibonacci_obj_t *self, uint16_t a) {
+    mp_arg_validate_int_min(a, 0, 'a');
+    // mp_arg_validate_int_min(b, a, 'b');
+    mp_arg_validate_int_max(a, self->b, 'a');
+    mp_arg_validate_int_max((a / 2), (1073731823 / 2), 'a');
+    return self->a = a;
+}
 
 uint16_t common_hal_fibonacci_fibonacci_get_b(fibonacci_fibonacci_obj_t *self) {
     return self->b;
 }
-
-/*
-uint16_t common_hal_fibonacci_fibonacci_get_timeout(fibonacci_fibonacci_obj_t *self) {
-    return self->timeout;
+uint16_t common_hal_fibonacci_fibonacci_set_b(fibonacci_fibonacci_obj_t *self, uint16_t b) {
+    mp_arg_validate_int_min(b, self->a, 'b');
+    mp_arg_validate_int_max((b / 2), (1073731823 / 2), 'b');
+    return self->b = b;
 }
-*/
-
-uint16_t common_hal_fibonacci_fibonacci_set_a(fibonacci_fibonacci_obj_t *self, uint16_t a) {
-    return self->a = a;
-}
-
-/*
-uint16_t common_hal_fibonacci_fibonacci_b(fibonacci_fibonacci_obj_t *self, uint16_t b) {
-  return self->b = b;
-}
-
-uint16_t common_hal_fibonacci_fibonacci_set_timeout(fibonacci_fibonacci_obj_t *self, uint16_t timeout) {
-  return self->timeout = timeout;
-}
-*/
