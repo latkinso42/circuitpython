@@ -155,33 +155,25 @@ MP_DEFINE_CONST_FUN_OBJ_KW(fibonacci_fibonacci_generate_obj, 1, fibonacci_fibona
 STATIC mp_obj_t fibonacci_fibonacci_obj_get_a(mp_obj_t self_in) {
     fibonacci_fibonacci_obj_t *self = MP_OBJ_TO_PTR(self_in);
     check_for_deinit(self);
-
     return MP_OBJ_NEW_SMALL_INT(common_hal_fibonacci_fibonacci_get_a(self));
 }
 MP_DEFINE_CONST_FUN_OBJ_1(fibonacci_fibonacci_get_a_obj, fibonacci_fibonacci_obj_get_a);
+// MP_PROPERTY_GETTER(fibonacci_fibonacci_a_obj,(mp_obj_t)&fibonacci_fibonacci_get_a_obj);
 
-MP_PROPERTY_GETTER(fibonacci_fibonacci_a_obj,
-    (mp_obj_t)&fibonacci_fibonacci_get_a_obj);
-
-///----------------------------------
-STATIC mp_obj_t fibonacci_fibonacci_obj_set_a
-    (size_t n_args, const mp_obj_t *pos_args, mp_map_t *kw_args) {
-    enum { ARG_a };
-    static const mp_arg_t allowed_args[] = {
-        { MP_QSTR_a, MP_ARG_INT, {.u_int = 0} },
-    };
-    fibonacci_fibonacci_obj_t *self = MP_OBJ_TO_PTR(pos_args[0]);
+STATIC mp_obj_t fibonacci_fibonacci_obj_set_a(mp_obj_t self_in, mp_obj_t a_value) {
+    fibonacci_fibonacci_obj_t *self = MP_OBJ_TO_PTR(self_in);
     check_for_deinit(self);
+    // uint16_t a =
 
-    mp_arg_val_t args[MP_ARRAY_SIZE(allowed_args)];
-    mp_arg_parse_all(n_args - 1, pos_args + 1, kw_args, MP_ARRAY_SIZE(allowed_args), allowed_args, args);
-
-    uint16_t a = common_hal_fibonacci_fibonacci_set_a(self, args[ARG_a].u_int);
-
-    return MP_OBJ_NEW_SMALL_INT(a);
+    common_hal_fibonacci_fibonacci_set_a(self, mp_obj_is_small_int(a_value));
+    // MP_OBJ_NEW_SMALL_INT(a));
+    // return MP_OBJ_NEW_SMALL_INT(a);
+    return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_KW(fibonacci_fibonacci_set_a_obj, 1, fibonacci_fibonacci_obj_set_a);
-
+MP_DEFINE_CONST_FUN_OBJ_2(fibonacci_fibonacci_set_a_obj, fibonacci_fibonacci_obj_set_a);
+MP_PROPERTY_GETSET(fibonacci_fibonacci_a_obj,
+    (mp_obj_t)&fibonacci_fibonacci_get_a_obj,
+    (mp_obj_t)&fibonacci_fibonacci_set_a_obj);
 
 
 
